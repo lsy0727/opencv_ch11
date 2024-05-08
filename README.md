@@ -11,6 +11,7 @@
 ![image](https://github.com/lsy0727/opencv_ch11/assets/92630416/4b925626-ce63-433f-b3bc-88dac66fc27e)
 
 
+
 2 - 원본 영상의 노이즈 제거
 
   1)모폴로지 연산을 수행하기 위해 이진화를 함
@@ -22,6 +23,7 @@
 ![image](https://github.com/lsy0727/opencv_ch11/assets/92630416/b5a2cbdc-9fc8-4cd0-900d-abf1f0f2d219)
 
 
+
 3 - 침식, 팽창 연산을 이용한 에지 검출
 
   원본 영상을 침식 연산하면 문자 객체가 작아지고, 팽창 연산하면 문자 객체가 커짐
@@ -29,6 +31,7 @@
   객체의 크기차이를 이용해 팽창 영상에서 침식 영상을 빼면 에지부분이 남음
 
 ![image](https://github.com/lsy0727/opencv_ch11/assets/92630416/0a439fa8-4651-4785-9255-c42ca933850f)
+
 
 
 4 - 차량의 번호판 영역을 검출하는 코드
