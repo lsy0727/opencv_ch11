@@ -5,9 +5,9 @@
 using namespace cv;
 using namespace std;
 int main() {
-	Mat rect = getStructuringElement(MORPH_RECT, Size(3, 3));	//»ç°¢Çü ¸ğ¾çÀÇ ±¸Á¶ ¿ä¼Ò
-	Mat cross = getStructuringElement(MORPH_CROSS, Size(3, 3));	//½ÊÀÚ°¡ ¸ğ¾çÀÇ ±¸Á¶ ¿ä¼Ò
-	Mat ellipse = getStructuringElement(MORPH_ELLIPSE, Size(5, 3));	//Å¸¿ø ¸ğ¾çÀÇ ±¸Á¶ ¿ä¼Ò
+	Mat rect = getStructuringElement(MORPH_RECT, Size(3, 3));	//ì‚¬ê°í˜• ëª¨ì–‘ì˜ êµ¬ì¡° ìš”ì†Œ
+	Mat cross = getStructuringElement(MORPH_CROSS, Size(3, 3));	//ì‹­ìê°€ ëª¨ì–‘ì˜ êµ¬ì¡° ìš”ì†Œ
+	Mat ellipse = getStructuringElement(MORPH_ELLIPSE, Size(5, 3));	//íƒ€ì› ëª¨ì–‘ì˜ êµ¬ì¡° ìš”ì†Œ
 
 	cout << "MORPH_RECT" << endl;
 	cout << rect << endl;
@@ -32,8 +32,8 @@ int main() {
 	Mat gray, bin, er;
 	cvtColor(src, gray, COLOR_BGR2GRAY);
 	threshold(gray, bin, 100, 255, THRESH_BINARY);
-	morphologyEx(bin, er, MORPH_OPEN, Mat());	//MORPH_OPEN : ¼öÃà -> ÆØÃ¢
-	morphologyEx(er, er, MORPH_CLOSE, Mat(), Point(-1, -1), 2);	//MORPH_CLOSE : ÆØÃ¢ -> ¼öÃà (2¹ø ¹İº¹ : ÆØÃ¢ -> ÆØÃ¢ -> ¼öÃà -> ¼öÃà)
+	morphologyEx(bin, er, MORPH_OPEN, Mat());	//MORPH_OPEN : ìˆ˜ì¶• -> íŒ½ì°½
+	morphologyEx(er, er, MORPH_CLOSE, Mat(), Point(-1, -1), 2);	//MORPH_CLOSE : íŒ½ì°½ -> ìˆ˜ì¶• (2ë²ˆ ë°˜ë³µ : íŒ½ì°½ -> íŒ½ì°½ -> ìˆ˜ì¶• -> ìˆ˜ì¶•)
 
 	imshow("src", src);
 	imshow("bin", bin);
@@ -54,9 +54,9 @@ int main() {
 	Mat src = imread("letterj2.png");
 
 	Mat gray, bin, edge;
-	cvtColor(src, gray, COLOR_BGR2GRAY);	//±×·¹ÀÌ º¯È¯
-	threshold(gray, bin, 100, 255, THRESH_BINARY);	//ÀÌÁøÈ­
-	morphologyEx(bin, edge, MORPH_GRADIENT, Mat());	// MORPH_GRADIENT : ÆØÃ¢ - ¼öÃà
+	cvtColor(src, gray, COLOR_BGR2GRAY);	//ê·¸ë ˆì´ ë³€í™˜
+	threshold(gray, bin, 100, 255, THRESH_BINARY);	//ì´ì§„í™”
+	morphologyEx(bin, edge, MORPH_GRADIENT, Mat());	// MORPH_GRADIENT : íŒ½ì°½ - ìˆ˜ì¶•
 
 	imshow("src", src);
 	imshow("bin", bin);
@@ -76,28 +76,28 @@ using namespace cv;
 int main() {
 	Mat src = imread("car.jpg");
 
-	namedWindow("ÀÌÁøÈ­ ¿µ»ó");
-	int pos = 0;	//ÀÌÁøÈ­ ¿µ»óÀÇ ÀÓ°è°ª
-	createTrackbar("threshold", "ÀÌÁøÈ­ ¿µ»ó", &pos, 255);
+	namedWindow("ì´ì§„í™” ì˜ìƒ");
+	int pos = 0;	//ì´ì§„í™” ì˜ìƒì˜ ì„ê³„ê°’
+	createTrackbar("threshold", "ì´ì§„í™” ì˜ìƒ", &pos, 255);
 
 	while (true) {
 		imshow("src", src);
 
 		Mat gray, blurring, dx;
-		cvtColor(src, gray, COLOR_BGR2GRAY);	//±×·¹ÀÌ º¯È¯
-		blur(gray, blurring, Size(5, 5));	//5x5 ºí·¯¸µ
-		Sobel(blurring, dx, CV_32FC1, 1, 0);	//xÃà ¹æÇâ Æí¹ÌºĞ
-		dx.convertTo(dx, CV_8UC1);	//8ºñÆ® 1Ã¤³Î ¿µ»óÀ¸·Î º¯È¯
-		imshow("xÃà ¹æÇâ ¼Òº§", dx);
+		cvtColor(src, gray, COLOR_BGR2GRAY);	//ê·¸ë ˆì´ ë³€í™˜
+		blur(gray, blurring, Size(5, 5));	//5x5 ë¸”ëŸ¬ë§
+		Sobel(blurring, dx, CV_32FC1, 1, 0);	//xì¶• ë°©í–¥ í¸ë¯¸ë¶„
+		dx.convertTo(dx, CV_8UC1);	//8ë¹„íŠ¸ 1ì±„ë„ ì˜ìƒìœ¼ë¡œ ë³€í™˜
+		imshow("xì¶• ë°©í–¥ ì†Œë²¨", dx);
 
 		Mat bin;
-		threshold(dx, bin, pos, 255, THRESH_BINARY);	//ÀÌÁøÈ­
-		imshow("ÀÌÁøÈ­ ¿µ»ó", bin);
+		threshold(dx, bin, pos, 255, THRESH_BINARY);	//ì´ì§„í™”
+		imshow("ì´ì§„í™” ì˜ìƒ", bin);
 
 		Mat close;
-		Mat rect = getStructuringElement(MORPH_RECT, Size(32, 5));	//5Çà 32¿­ÀÇ »ç°¢Çü ±¸Á¶ ¿ä¼Ò
-		morphologyEx(bin, close, MORPH_CLOSE, rect);	//´İÈû ¿¬»ê
-		imshow("´İÈû ¿¬»ê", close);
+		Mat rect = getStructuringElement(MORPH_RECT, Size(50, 5));	//5í–‰ 50ì—´ì˜ ì‚¬ê°í˜• êµ¬ì¡° ìš”ì†Œ
+		morphologyEx(bin, close, MORPH_CLOSE, rect);	//ë‹«í˜ ì—°ì‚°
+		imshow("ë‹«í˜ ì—°ì‚°", close);
 
 		waitKey(1);
 	}
